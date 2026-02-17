@@ -37,7 +37,6 @@ router.get("/myorders", protect, async (req, res) => {
 
 module.exports = router;
 
-// Vendor: Get orders for their products
 router.get("/vendor", protect, vendorOnly, async (req, res) => {
   const vendorProducts = await Product.find({ vendorId: req.user._id });
 
@@ -50,7 +49,6 @@ router.get("/vendor", protect, vendorOnly, async (req, res) => {
   res.json(orders);
 });
 
-// Vendor update order status
 router.put("/update-status/:id", protect, vendorOnly, async (req, res) => {
   const { status } = req.body;
 
@@ -65,7 +63,6 @@ router.put("/update-status/:id", protect, vendorOnly, async (req, res) => {
   res.json(order);
 });
 
-// Admin: View all orders
 router.get("/all", protect, adminOnly, async (req, res) => {
   const orders = await Order.find()
     .populate("items.product")
